@@ -12,6 +12,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+import { QuizEditComponent } from './quiz/quiz-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
     QuizComponent,
     AboutComponent,
     LoginComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    QuizEditComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -31,6 +33,8 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
+      { path: 'quiz/create', component: QuizEditComponent },
+      { path: 'quiz/edit/:id', component: QuizEditComponent },
       { path: 'quiz/:id', component: QuizComponent },
       { path: 'about', component: AboutComponent },
       { path: 'login', component: LoginComponent },

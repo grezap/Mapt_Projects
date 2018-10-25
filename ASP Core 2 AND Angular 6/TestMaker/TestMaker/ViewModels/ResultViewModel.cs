@@ -29,6 +29,14 @@ namespace TestMaker.ViewModels
         {
             get; set;
         }
+        public int? MinValue
+        {
+            get; set;
+        }
+        public int? MaxValue
+        {
+            get; set;
+        }
         public string Notes
         {
             get; set;

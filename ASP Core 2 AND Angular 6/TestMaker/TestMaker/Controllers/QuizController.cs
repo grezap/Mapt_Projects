@@ -4,6 +4,7 @@ using System.Linq;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using TestMaker.Controllers.Base;
 using TestMaker.Data;
 using TestMaker.Data.Models;
 using TestMaker.ViewModels;
@@ -12,23 +13,13 @@ using TestMaker.ViewModels;
 
 namespace TestMaker.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class QuizController : Controller
+
+    public class QuizController : BaseApiController
     {
-
-        #region Fields
-
-        private ApplicationDbContext dbContext;
-
-        #endregion
 
         #region Constructor
 
-        public QuizController(ApplicationDbContext DbContext)
-        {
-            dbContext = DbContext;
-        }
+        public QuizController(ApplicationDbContext DbContext) : base(DbContext) { }
 
         #endregion
 
@@ -46,10 +37,7 @@ namespace TestMaker.Controllers
             // output the result in JSON format 
             return new JsonResult(
                 latest.Adapt<QuizViewModel[]>(),
-                new JsonSerializerSettings()
-                {
-                    Formatting = Formatting.Indented
-                });
+                JsonSettings);
         }
 
         /// <summary>
@@ -68,10 +56,7 @@ namespace TestMaker.Controllers
 
             return new JsonResult(
                 byTitle.Adapt<QuizViewModel[]>(),
-                new JsonSerializerSettings()
-                {
-                    Formatting = Formatting.Indented
-                });
+                JsonSettings);
         }
 
         /// <summary>
@@ -90,10 +75,7 @@ namespace TestMaker.Controllers
 
             return new JsonResult(
                 random.Adapt<QuizViewModel[]>(),
-                new JsonSerializerSettings()
-                {
-                    Formatting = Formatting.Indented
-                });
+                JsonSettings);
         }
 
         #region RESTful conventions methods 
@@ -120,10 +102,7 @@ namespace TestMaker.Controllers
             // output the result in JSON format 
             return new JsonResult(
                 quiz.Adapt<QuizViewModel>(),
-                new JsonSerializerSettings()
-                {
-                    Formatting = Formatting.Indented
-                });
+                JsonSettings);
         }
 
         /// <summary> 
@@ -163,10 +142,7 @@ namespace TestMaker.Controllers
 
             // return the newly-created Quiz to the client.
             return new JsonResult(quiz.Adapt<QuizViewModel>(),
-                        new JsonSerializerSettings()
-                        {
-                            Formatting = Formatting.Indented
-                        });
+                        JsonSettings);
         }
 
         /// <summary> 
@@ -211,10 +187,7 @@ namespace TestMaker.Controllers
 
             // return the updated Quiz to the client.
             return new JsonResult(quiz.Adapt<QuizViewModel>(),
-                        new JsonSerializerSettings()
-                        {
-                            Formatting = Formatting.Indented
-                        });
+                        JsonSettings);
         }
 
         /// <summary> 
