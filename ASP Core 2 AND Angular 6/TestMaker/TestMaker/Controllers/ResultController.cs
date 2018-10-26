@@ -41,7 +41,7 @@ namespace TestMaker.Controllers
             {
                 return NotFound(new
                 {
-                    Error = String.Format("Result ID {0} has not been found", m.Id)
+                    Error = String.Format("Result ID {0} has not been found", id)
                 });
             }
 
@@ -141,7 +141,7 @@ namespace TestMaker.Controllers
             {
                 return NotFound(new
                 {
-                    Error = String.Format("Result ID {0} has not been found", m.Id)
+                    Error = String.Format("Result ID {0} has not been found",id)
                 });
             }
 

@@ -67,7 +67,7 @@ QuizEditComponent = __decorate([
     core_1.Component({
         selector: "quiz-edit",
         templateUrl: './quiz-edit.component.html',
-        styleUrls: ['./quiz-edit.component.css']
+        styleUrls: ['./quiz-edit.component.less']
     }),
     __param(3, core_1.Inject('BASE_URL')),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
