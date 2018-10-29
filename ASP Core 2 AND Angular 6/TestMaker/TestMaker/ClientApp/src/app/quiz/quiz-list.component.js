@@ -60,7 +60,7 @@ QuizListComponent = __decorate([
     core_1.Component({
         selector: "quiz-list",
         templateUrl: './quiz-list.component.html',
-        styleUrls: ['./quiz-list.component.css']
+        styleUrls: ['./quiz-list.component.less']
     }),
     __param(2, core_1.Inject('BASE_URL')),
     __metadata("design:paramtypes", [http_1.HttpClient, router_1.Router, String])

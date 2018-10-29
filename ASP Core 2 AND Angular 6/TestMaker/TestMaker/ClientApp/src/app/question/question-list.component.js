@@ -66,7 +66,7 @@ QuestionListComponent = __decorate([
     core_1.Component({
         selector: "question-list",
         templateUrl: './question-list.component.html',
-        styleUrls: ['./question-list.component.css']
+        styleUrls: ['./question-list.component.less']
     }),
     __param(1, core_1.Inject('BASE_URL')),
     __metadata("design:paramtypes", [http_1.HttpClient, String, router_1.Router])

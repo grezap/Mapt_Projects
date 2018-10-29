@@ -27,6 +27,7 @@ export class QuizEditComponent {
     // create an empty object from the Quiz interface
     this.quiz = <Quiz>{};
 
+    //initialize the form
     this.createForm();
 
     var id = +this.activatedRoute.snapshot.params["id"];
@@ -38,7 +39,10 @@ export class QuizEditComponent {
       this.http.get<Quiz>(url).subscribe(res => {
         this.quiz = res;
         this.title = "Edit - " + this.quiz.Title;
+
+        //update the form with the quiz value
         this.updateForm();
+
       }, error => console.error(error));
     }
     else {

@@ -15,14 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
 const http_1 = require("@angular/common/http");
+const forms_1 = require("@angular/forms");
 let ResultEditComponent = class ResultEditComponent {
-    constructor(activatedRoute, router, http, baseUrl) {
+    constructor(activatedRoute, router, http, fb, baseUrl) {
         this.activatedRoute = activatedRoute;
         this.router = router;
         this.http = http;
+        this.fb = fb;
         this.baseUrl = baseUrl;
         // create an empty object from the Quiz interface
         this.result = {};
+        this.createForm();
         var id = +this.activatedRoute.snapshot.params["id"];
         // check if we're in edit mode or not
         this.editMode = (this.activatedRoute.snapshot.url[1].path ===
@@ -33,6 +36,7 @@ let ResultEditComponent = class ResultEditComponent {
             this.http.get(url).subscribe(res => {
                 this.result = res;
                 this.title = "Edit - " + this.result.Text;
+                this.updateForm();
             }, error => console.error(error));
         }
         else {
@@ -40,11 +44,16 @@ let ResultEditComponent = class ResultEditComponent {
             this.title = "Create a new Result";
         }
     }
-    onSubmit(result) {
+    onSubmit() {
+        var tempResult = {};
+        tempResult.Text = this.result.Text;
+        tempResult.QuizId = this.result.QuizId;
+        tempResult.MinValue = this.result.MinValue;
+        tempResult.MaxValue = this.result.MaxValue;
         var url = this.baseUrl + "api/result";
         if (this.editMode) {
             this.http
-                .post(url, result)
+                .post(url, tempResult)
                 .subscribe(res => {
                 var v = res;
                 console.log("Result " + v.Id + " has been updated.");
@@ -53,7 +62,7 @@ let ResultEditComponent = class ResultEditComponent {
         }
         else {
             this.http
-                .put(url, result)
+                .put(url, tempResult)
                 .subscribe(res => {
                 var v = res;
                 console.log("Result " + v.Id + " has been created.");
@@ -64,6 +73,39 @@ let ResultEditComponent = class ResultEditComponent {
     onBack() {
         this.router.navigate(["quiz/edit", this.result.QuizId]);
     }
+    createForm() {
+        this.form = this.fb.group({
+            Text: ['', forms_1.Validators.required],
+            MinValue: ['', forms_1.Validators.pattern(/^\d*$/)],
+            MaxValue: ['', forms_1.Validators.pattern(/^\d*$/)]
+        });
+    }
+    updateForm() {
+        this.form.setValue({
+            Text: this.result.Text,
+            MinValue: this.result.MinValue || '',
+            MaxValue: this.result.MaxValue || ''
+        });
+    }
+    // retrieve a FormControl
+    getFormControl(name) {
+        return this.form.get(name);
+    }
+    // returns TRUE if the FormControl is valid
+    isValid(name) {
+        var e = this.getFormControl(name);
+        return e && e.valid;
+    }
+    // returns TRUE if the FormControl has been changed
+    isChanged(name) {
+        var e = this.getFormControl(name);
+        return e && (e.dirty || e.touched);
+    }
+    // returns TRUE if the FormControl is invalid after user changes
+    hasError(name) {
+        var e = this.getFormControl(name);
+        return e && (e.dirty || e.touched) && !e.valid;
+    }
 };
 ResultEditComponent = __decorate([
     core_1.Component({
@@ -71,10 +113,11 @@ ResultEditComponent = __decorate([
         templateUrl: './result-edit.component.html',
         styleUrls: ['./result-edit.component.less']
     }),
-    __param(3, core_1.Inject('BASE_URL')),
+    __param(4, core_1.Inject('BASE_URL')),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router,
-        http_1.HttpClient, String])
+        http_1.HttpClient,
+        forms_1.FormBuilder, String])
 ], ResultEditComponent);
 exports.ResultEditComponent = ResultEditComponent;
 //# sourceMappingURL=result-edit.component.js.map

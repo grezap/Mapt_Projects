@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace TestMaker.Data.Models
 {
-    public class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
         #region Constructor
         public ApplicationUser()
@@ -16,25 +17,28 @@ namespace TestMaker.Data.Models
         #endregion
 
         #region Properties
-        [Key]
-        [Required]
-        public string Id
-        {
-            get; set;
-        }
 
-        [Required]
-        [MaxLength(128)]
-        public string UserName
-        {
-            get; set;
-        }
+        //Commented out the below 3 properties as we inherit them from base IdentityUser, so they are no longer needed
 
-        [Required]
-        public string Email
-        {
-            get; set;
-        }
+        //[Key]
+        //[Required]
+        //public string Id
+        //{
+        //    get; set;
+        //}
+
+        //[Required]
+        //[MaxLength(128)]
+        //public string UserName
+        //{
+        //    get; set;
+        //}
+
+        //[Required]
+        //public string Email
+        //{
+        //    get; set;
+        //}
 
         public string DisplayName
         {

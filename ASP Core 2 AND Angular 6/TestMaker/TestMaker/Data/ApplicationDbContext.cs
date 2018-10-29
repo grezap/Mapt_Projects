@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TestMaker.Data.Models;
 
 namespace TestMaker.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
         #region Constructor
@@ -23,10 +24,12 @@ namespace TestMaker.Data
 
         #region Properties
 
-        public DbSet<ApplicationUser> Users
-        {
-            get; set;
-        }
+        //commented out as we inherit it from IdentityDbContext
+        //public DbSet<ApplicationUser> Users
+        //{
+        //    get; set;
+        //}
+
         public DbSet<Quiz> Quizzes
         {
             get; set;

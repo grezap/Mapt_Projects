@@ -25,6 +25,7 @@ let QuizEditComponent = class QuizEditComponent {
         this.baseUrl = baseUrl;
         // create an empty object from the Quiz interface
         this.quiz = {};
+        //initialize the form
         this.createForm();
         var id = +this.activatedRoute.snapshot.params["id"];
         if (id) {
@@ -34,6 +35,7 @@ let QuizEditComponent = class QuizEditComponent {
             this.http.get(url).subscribe(res => {
                 this.quiz = res;
                 this.title = "Edit - " + this.quiz.Title;
+                //update the form with the quiz value
                 this.updateForm();
             }, error => console.error(error));
         }
