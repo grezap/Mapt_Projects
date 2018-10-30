@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from "@angular/router";
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -6,6 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-menu.component.less']
 })
 export class NavMenuComponent {
+
+  constructor(public auth: AuthService, private router:Router) { }
+
+  logout(): boolean {
+    // logs out the user, then redirects him to Home View.
+    if (this.auth.logout()) {
+      this.router.navigate(["home"]);
+    }
+    return false;
+  }
+
   isExpanded = false;
 
   collapse() {

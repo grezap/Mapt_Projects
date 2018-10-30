@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using TestMaker.Controllers.Base;
 using TestMaker.Data;
@@ -18,7 +21,9 @@ namespace TestMaker.Controllers
 
         #region Constructor
 
-        public QuestionController(ApplicationDbContext DbContext) : base(DbContext){}
+        public QuestionController(ApplicationDbContext DbContext, RoleManager<IdentityRole> roleManager,
+            UserManager<ApplicationUser> userManager,
+            IConfiguration configuration) : base(DbContext,roleManager,userManager,configuration){}
 
         #endregion
 
@@ -52,6 +57,7 @@ namespace TestMaker.Controllers
         /// </summary> 
         /// <param name="m">The QuestionViewModel containing the data to insert</param> 
         [HttpPut]
+        [Authorize]
         public IActionResult Put([FromBody]QuestionViewModel model)
         {
             // return a generic HTTP Status 500 (Server Error)
@@ -87,6 +93,7 @@ namespace TestMaker.Controllers
         /// </summary> 
         /// <param name="m">The QuestionViewModel containing the data to update</param> 
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody]QuestionViewModel model)
         {
             // return a generic HTTP Status 500 (Server Error)
@@ -130,6 +137,7 @@ namespace TestMaker.Controllers
         /// </summary> 
         /// <param name="id">The ID of an existing Question</param> 
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             // retrieve the question from the Database

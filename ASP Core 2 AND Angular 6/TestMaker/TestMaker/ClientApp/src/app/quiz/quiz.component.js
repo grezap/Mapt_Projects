@@ -15,11 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
 const http_1 = require("@angular/common/http");
+const auth_service_1 = require("../services/auth.service");
 let QuizComponent = class QuizComponent {
-    constructor(activatedRoute, router, http, baseUrl) {
+    constructor(activatedRoute, router, http, auth, baseUrl) {
         this.activatedRoute = activatedRoute;
         this.router = router;
         this.http = http;
+        this.auth = auth;
         this.baseUrl = baseUrl;
         this.quiz = {};
         var id = +this.activatedRoute.snapshot.params["id"];
@@ -54,8 +56,8 @@ QuizComponent = __decorate([
         templateUrl: './quiz.component.html',
         styleUrls: ['./quiz.component.less']
     }),
-    __param(3, core_1.Inject('BASE_URL')),
-    __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, http_1.HttpClient, String])
+    __param(4, core_1.Inject('BASE_URL')),
+    __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, http_1.HttpClient, auth_service_1.AuthService, String])
 ], QuizComponent);
 exports.QuizComponent = QuizComponent;
 //# sourceMappingURL=quiz.component.js.map

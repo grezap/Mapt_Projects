@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using TestMaker.Controllers.Base;
 using TestMaker.Data;
@@ -20,7 +23,9 @@ namespace TestMaker.Controllers
 
         #region Constructor
 
-        public ResultController(ApplicationDbContext DbContext) : base(DbContext){}
+        public ResultController(ApplicationDbContext DbContext, RoleManager<IdentityRole> roleManager,
+            UserManager<ApplicationUser> userManager,
+            IConfiguration configuration) : base(DbContext,roleManager,userManager,configuration){}
 
         #endregion
 
@@ -55,6 +60,7 @@ namespace TestMaker.Controllers
         /// </summary> 
         /// <param name="model">The ResultViewModel containing the data to insert</param> 
         [HttpPut]
+        [Authorize]
         public IActionResult Put([FromBody]ResultViewModel model)
         {
             // return a generic HTTP Status 500 (Server Error)
@@ -85,6 +91,7 @@ namespace TestMaker.Controllers
         /// </summary> 
         /// <param name="model">The ResultViewModel containing the data to update</param> 
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody]ResultViewModel model)
         {
             // return a generic HTTP Status 500 (Server Error)
@@ -130,6 +137,7 @@ namespace TestMaker.Controllers
         /// </summary> 
         /// <param name="id">The ID of an existing Result</param> 
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             // retrieve the result from the Database
