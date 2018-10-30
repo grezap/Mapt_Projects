@@ -16,7 +16,8 @@ const core_1 = require("@angular/core");
 const common_1 = require("@angular/common");
 const http_1 = require("@angular/common/http");
 const Observable_1 = require("rxjs/Observable");
-require("rxjs/Rx");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
 let AuthService = class AuthService {
     constructor(http, platformId) {
         this.http = http;
